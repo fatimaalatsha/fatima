@@ -1,120 +1,82 @@
-import React, { Component } from 'react';
-import axios from "axios";
+import React from 'react';
+import ListItem from './ListItem.jsx';
 
 
-export default class AddItems extends Component {
+// form for add item
+class AddItems extends React.Component {
+
+
   constructor(props) {
     super(props);
-
-    //Defining the "this" in the functions using .bind method
-    this.onChangeItemName = this.onChangeItemName.bind(this);
-    this.onChangeCategory = this.onChangeCategory.bind(this);
-    this.onChangeDescription = this.onChangeDescription.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-
     this.state = {
-      itemName: "",
+      itemName : "",
       category : "",
-      categoryList: [],
-      description: ""
+      description : "",
+      image : ""
     }
   }
 
-  //List of category
-  //Fix the list
-  componentDidMount() {
+
+  onChange(event){
+    //console.log(this.state.name,this.state.category,this.state.description)
     this.setState({
-      categoryList: ["Women", "Men", "Kids"],
-      category: "Women"
+    [event.target.name] : event.target.value
     });
+    console.log (this.state.itemName , this.state.category , this.state.description)
   }
 
-  //Event Handlers:
-  onChangeItemName(e) {
-    this.setState({
-      itemName: e.target.value
-    });
+  submit(){
+    this.props.onSubmit(this.state.name)
+    console.log(this.props)
   }
 
-  onChangeCategory(e) {
-    this.setState({
-      selectValue : e.target.value
-    });
-  }
-
-  onChangeDescription(e) {
-    this.setState({
-      description: e.target.value
-    });
-  }
-
-  onSubmit(e) {
-    e.preventDefault();
-    const item = {
-      itemName: this.state.itemName,
-      category: this.state.category,
-      description: this.state.description
-    }
-
-    console.log(item);
-    axios.post("http://localhost:3000/addItems/add", item)
-      .then(res => console.log(res.data));
-
-    // window.location = '/clothes'
-  }
-
-  render() {
-    return (
-      <div>
-        <h3> Insert Quote Here </h3>
-        <br />
-        <form onSubmit = {this.onSubmit}>
-          <div className = "addItemName">
-
-            <label>Item Name </label>
-            <input 
-              type = "text" 
-              className = "itemName" 
-              value = {this.state.itemName} 
-              onChange = {this.onChangeItemName}/>
-
-          </div>
-          <br />
-          <div className = "addCategory">
-
-            <label>Select Category </label>
-            <select
-              ref = "userInput"
-              required
-              className = "category"
-              value = {this.state.selectValue}
-              onChange = {this.onChangeCategory}
-              >
-              <option value = "women">Women</option>
-              <option value = "men">Men</option>
-              <option value = "kids">Kids</option>
-
-            </select>
-
-          </div> 
-          <br />
-          <div className = "addDescription">
-
-            <label>Description </label>
-            <input 
-              type = "text" 
-              className = "description" 
-              value = {this.state.description} 
-              onChange = {this.onChangeDescription}/>
-
-          </div>
-          <br />
-          <div className = "submitButton">
-            <input type = "submit" value = "Submit" className = "button" />
-          </div>
-
-        </form>
-      </div>
-    )
-  }
+  render(){
+  return (
+    <div>
+  <form>
+    <input
+        id="itemName"
+        name="itemName"
+        type="text"
+        placeholder="Insert Item Name"
+        onChange={this.onChange.bind(this)}
+        value={this.state.name}>
+     </input>
+     <br></br>
+    <input
+        id="category"
+        name="category"
+        placeholder="Insert Item Category"
+        type="text"
+        onChange={this.onChange.bind(this)}
+        value={this.state.category}>
+     </input>
+     <br></br>
+    <input
+        id="description"
+        name="description"
+        type="text"
+        placeholder="Insert Item Description"
+        onChange={this.onChange.bind(this)}
+        value={this.state.description}>
+      </input>
+      <br></br>
+    {/* <image id="image" onChange={this.onChange.bind(this)} value={this.state.image}>Image</image> */}
+    <button
+      id="addItem"
+      type="submit"
+      value="Submit"
+      onClick = {this.submit.bind(this)}>
+      ADD ITEM
+    </button>
+  </form>
+    {/* <h4> List Component </h4>
+    There are { props.items.length } items.
+    { props.items.map(item => <ListItem item={item}/>)} */}
+  </div>
+  )
 }
+
+
+}
+export default AddItems;

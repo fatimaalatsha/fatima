@@ -2,7 +2,7 @@ const mongoose= require('mongoose');
 const { schema } = require('./addItems.model');
 
 const Schema = mongoose.Schema;
-
+//creat the Schema, what data we want to be saved
 const userSchema = new Schema({
     username:{
         type: String,
@@ -17,6 +17,7 @@ const userSchema = new Schema({
         
     },
     phone: {
+        
         type: Number,
         min:10
     },

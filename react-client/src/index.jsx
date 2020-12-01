@@ -1,13 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
-//<<<<<<< HEAD
 import Signup from './components/Signup.jsx';
-///=======
-import AddItems from './components/AddItems.jsx';
-import ItemsList from './components/ItemsList.jsx';
-//>>>>>>> 06ef21ee5f7fef9e641b902d7b75933e99ae085b
-
+import Login from './components/Login.jsx'
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -42,9 +37,8 @@ class App extends React.Component {
 
   render () {
     return (<div>
-      <h1>quote</h1>
-      <AddItems onSubmit={this.submit.bind(this)}/>
-      <ItemsList />
+      <h1></h1>
+      <Login />
     </div>)
   }
 }
